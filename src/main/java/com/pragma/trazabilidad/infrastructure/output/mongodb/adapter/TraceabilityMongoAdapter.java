@@ -32,4 +32,14 @@ public class TraceabilityMongoAdapter implements ITraceabilityPersistencePort {
     public List<Traceability> getTraceabilityByClientId(Long clientId) {
         return traceabilityEntityMapper.toModelList(traceabilityRepository.findAllByClientId(clientId));
     }
+
+    @Override
+    public List<Traceability> getTraceabilityByRestaurantId(Long restaurantId) {
+        return traceabilityEntityMapper.toModelList(traceabilityRepository.findAllByRestaurantId(restaurantId));
+    }
+
+    @Override
+    public List<Long> getDistinctOrderIdsByRestaurantId(Long restaurantId) {
+        return traceabilityRepository.findDistinctOrderIdsByRestaurantId(restaurantId);
+    }
 }
