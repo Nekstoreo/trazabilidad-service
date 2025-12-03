@@ -4,7 +4,6 @@ import com.pragma.trazabilidad.domain.model.EmployeeRanking;
 import com.pragma.trazabilidad.domain.model.OrderEfficiency;
 import com.pragma.trazabilidad.domain.model.Traceability;
 import com.pragma.trazabilidad.domain.spi.ITraceabilityPersistencePort;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
