@@ -1,0 +1,244 @@
+{
+  "info": {
+    "name": "Trazabilidad Service",
+    "description": "API collection for Trazabilidad (Traceability) microservice. Provides endpoints for order traceability logs and efficiency metrics.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Traceability",
+      "item": [
+        {
+          "name": "Save Traceability",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 1,\n  \"clientId\": 5,\n  \"clientEmail\": \"cliente@example.com\",\n  \"previousStatus\": null,\n  \"newStatus\": \"PENDING\",\n  \"employeeId\": null,\n  \"employeeEmail\": null,\n  \"restaurantId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/traceability",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "traceability"
+              ]
+            },
+            "description": "Saves a traceability log entry for an order status change. This endpoint is typically called by the plazoleta-service when an order status changes."
+          },
+          "response": []
+        },
+        {
+          "name": "Save Traceability - Order In Preparation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 1,\n  \"clientId\": 5,\n  \"clientEmail\": \"cliente@example.com\",\n  \"previousStatus\": \"PENDING\",\n  \"newStatus\": \"IN_PREPARATION\",\n  \"employeeId\": 3,\n  \"employeeEmail\": \"empleado@example.com\",\n  \"restaurantId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/traceability",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "traceability"
+              ]
+            },
+            "description": "Saves a traceability log when an employee takes an order and starts preparation."
+          },
+          "response": []
+        },
+        {
+          "name": "Save Traceability - Order Ready",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 1,\n  \"clientId\": 5,\n  \"clientEmail\": \"cliente@example.com\",\n  \"previousStatus\": \"IN_PREPARATION\",\n  \"newStatus\": \"READY\",\n  \"employeeId\": 3,\n  \"employeeEmail\": \"empleado@example.com\",\n  \"restaurantId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/traceability",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "traceability"
+              ]
+            },
+            "description": "Saves a traceability log when an order is marked as ready for pickup."
+          },
+          "response": []
+        },
+        {
+          "name": "Save Traceability - Order Delivered",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 1,\n  \"clientId\": 5,\n  \"clientEmail\": \"cliente@example.com\",\n  \"previousStatus\": \"READY\",\n  \"newStatus\": \"DELIVERED\",\n  \"employeeId\": 3,\n  \"employeeEmail\": \"empleado@example.com\",\n  \"restaurantId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/traceability",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "traceability"
+              ]
+            },
+            "description": "Saves a traceability log when an order is delivered to the client."
+          },
+          "response": []
+        },
+        {
+          "name": "Save Traceability - Order Cancelled",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 2,\n  \"clientId\": 5,\n  \"clientEmail\": \"cliente@example.com\",\n  \"previousStatus\": \"PENDING\",\n  \"newStatus\": \"CANCELLED\",\n  \"employeeId\": null,\n  \"employeeEmail\": null,\n  \"restaurantId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/traceability",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "traceability"
+              ]
+            },
+            "description": "Saves a traceability log when an order is cancelled by the client."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Traceability By Order ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/traceability/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "traceability",
+                "1"
+              ]
+            },
+            "description": "Retrieves all traceability logs for a specific order. Returns the complete history of status changes."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Traceability By Client ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/traceability/client/5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "traceability",
+                "client",
+                "5"
+              ]
+            },
+            "description": "Retrieves all traceability logs for orders placed by a specific client."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Efficiency",
+      "item": [
+        {
+          "name": "Get Orders Efficiency By Restaurant",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/traceability/efficiency/restaurant/1/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "traceability",
+                "efficiency",
+                "restaurant",
+                "1",
+                "orders"
+              ]
+            },
+            "description": "Retrieves efficiency metrics for all completed orders of a specific restaurant.\n\nThis endpoint calculates the duration between order creation (PENDING status) and order completion (DELIVERED or CANCELLED status).\n\nResponse includes:\n- orderId: The order identifier\n- startTime: When the order was created (PENDING status)\n- endTime: When the order was completed\n- durationInMinutes: Total processing time in minutes\n- finalStatus: Final status (DELIVERED or CANCELLED)\n- employeeId: ID of the employee who handled the order (if applicable)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Employee Ranking By Restaurant",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/traceability/efficiency/restaurant/1/employees",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "traceability",
+                "efficiency",
+                "restaurant",
+                "1",
+                "employees"
+              ]
+            },
+            "description": "Retrieves the employee ranking based on average order completion time for a specific restaurant.\n\nEmployees are ranked from fastest (position 1) to slowest based on their average order processing time.\n\nResponse includes:\n- employeeId: The employee identifier\n- averageDurationInMinutes: Average time to complete orders\n- totalOrdersCompleted: Number of orders completed by the employee\n- rankingPosition: Position in the ranking (1 = fastest)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8083",
+      "type": "string"
+    }
+  ]
+}
