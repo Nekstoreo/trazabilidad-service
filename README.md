@@ -6,3 +6,7 @@ Microservicio encargado del registro y consulta de la trazabilidad de pedidos de
 
 - **8083**
 
+## Documentación
+
+- Más detalles técnicos en: [Documentación técnica](./docs/trazabilidad-service-technical-documentation.md)
+
