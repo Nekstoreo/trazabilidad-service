@@ -10,7 +10,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public class TraceabilityUseCase implements ITraceabilityServicePort {
 
@@ -53,7 +52,7 @@ public class TraceabilityUseCase implements ITraceabilityServicePort {
 
         return efficiencies.stream()
                 .sorted(Comparator.comparing(OrderEfficiency::getOrderId))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
