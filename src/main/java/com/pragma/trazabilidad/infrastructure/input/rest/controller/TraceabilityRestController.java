@@ -1,6 +1,6 @@
 package com.pragma.trazabilidad.infrastructure.input.rest.controller;
 
-import com.pragma.trazabilidad.application.handler.TraceabilityHandler;
+import com.pragma.trazabilidad.infrastructure.input.rest.adapter.TraceabilityRestInputAdapter;
 import com.pragma.trazabilidad.infrastructure.input.rest.dto.EmployeeRankingResponseDto;
 import com.pragma.trazabilidad.infrastructure.input.rest.dto.OrderEfficiencyResponseDto;
 import com.pragma.trazabilidad.infrastructure.input.rest.dto.TraceabilityRequestDto;
@@ -25,7 +25,7 @@ import java.util.List;
 @Tag(name = "Traceability", description = "API para gestión de trazabilidad y eficiencia de pedidos")
 public class TraceabilityRestController {
 
-    private final TraceabilityHandler traceabilityHandler;
+    private final TraceabilityRestInputAdapter traceabilityRestInputAdapter;
 
     @Operation(summary = "Save traceability")
     @ApiResponses(value = {
@@ -34,7 +34,7 @@ public class TraceabilityRestController {
     })
     @PostMapping
     public ResponseEntity<Void> saveTraceability(@RequestBody TraceabilityRequestDto traceabilityRequestDto) {
-        traceabilityHandler.saveTraceability(traceabilityRequestDto);
+        traceabilityRestInputAdapter.saveTraceability(traceabilityRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -45,7 +45,7 @@ public class TraceabilityRestController {
     })
     @GetMapping("/{orderId}")
     public ResponseEntity<List<TraceabilityResponseDto>> getTraceabilityByOrderId(@PathVariable Long orderId) {
-        return ResponseEntity.ok(traceabilityHandler.getTraceabilityByOrderId(orderId));
+        return ResponseEntity.ok(traceabilityRestInputAdapter.getTraceabilityByOrderId(orderId));
     }
 
     @Operation(summary = "Get traceability by client id")
@@ -55,7 +55,7 @@ public class TraceabilityRestController {
     })
     @GetMapping("/client/{clientId}")
     public ResponseEntity<List<TraceabilityResponseDto>> getTraceabilityByClientId(@PathVariable Long clientId) {
-        return ResponseEntity.ok(traceabilityHandler.getTraceabilityByClientId(clientId));
+        return ResponseEntity.ok(traceabilityRestInputAdapter.getTraceabilityByClientId(clientId));
     }
 
     @Operation(summary = "Get orders efficiency by restaurant",
@@ -69,7 +69,7 @@ public class TraceabilityRestController {
     @GetMapping("/efficiency/restaurant/{restaurantId}/orders")
     public ResponseEntity<List<OrderEfficiencyResponseDto>> getOrdersEfficiencyByRestaurant(
             @PathVariable Long restaurantId) {
-        return ResponseEntity.ok(traceabilityHandler.getOrdersEfficiencyByRestaurant(restaurantId));
+        return ResponseEntity.ok(traceabilityRestInputAdapter.getOrdersEfficiencyByRestaurant(restaurantId));
     }
 
     @Operation(summary = "Get employee ranking by restaurant",
@@ -83,6 +83,6 @@ public class TraceabilityRestController {
     @GetMapping("/efficiency/restaurant/{restaurantId}/employees")
     public ResponseEntity<List<EmployeeRankingResponseDto>> getEmployeeRankingByRestaurant(
             @PathVariable Long restaurantId) {
-        return ResponseEntity.ok(traceabilityHandler.getEmployeeRankingByRestaurant(restaurantId));
+        return ResponseEntity.ok(traceabilityRestInputAdapter.getEmployeeRankingByRestaurant(restaurantId));
     }
 }
