@@ -10,3 +10,7 @@ Microservicio encargado del registro y consulta de la trazabilidad de pedidos de
 
 - Más detalles técnicos en: [Documentación técnica](./docs/trazabilidad-service-technical-documentation.md)
 
+## Repositorio Principal
+
+[Volver al repositorio principal](https://github.com/Nekstoreo/plazoleta-microservicios)
+
