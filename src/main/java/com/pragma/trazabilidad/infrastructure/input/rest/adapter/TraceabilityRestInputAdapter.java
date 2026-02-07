@@ -6,8 +6,8 @@ import com.pragma.trazabilidad.infrastructure.input.rest.dto.EmployeeRankingResp
 import com.pragma.trazabilidad.infrastructure.input.rest.dto.OrderEfficiencyResponseDto;
 import com.pragma.trazabilidad.infrastructure.input.rest.dto.TraceabilityRequestDto;
 import com.pragma.trazabilidad.infrastructure.input.rest.dto.TraceabilityResponseDto;
-import com.pragma.trazabilidad.infrastructure.input.rest.mapper.EfficiencyDtoMapper;
-import com.pragma.trazabilidad.infrastructure.input.rest.mapper.TraceabilityDtoMapper;
+import com.pragma.trazabilidad.application.mapper.EfficiencyDtoMapper;
+import com.pragma.trazabilidad.application.mapper.TraceabilityDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
