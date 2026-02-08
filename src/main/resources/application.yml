@@ -4,11 +4,9 @@ server:
 spring:
   application:
     name: trazabilidad-service
-  
   data:
     mongodb:
-      uri: ${MONGODB_URI:mongodb://localhost:27017/trazabilidad_db}
-      database: trazabilidad_db
+      uri: mongodb://${MONGO_ROOT_USER:rootuser}:${MONGO_ROOT_PASSWORD:rootpass123}@localhost:27017/trazabilidad_db?authSource=admin
 
 # OpenAPI / Swagger
 springdoc:
