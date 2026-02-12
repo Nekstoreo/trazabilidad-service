@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/traceability")
 @RequiredArgsConstructor
-@Tag(name = "Traceability", description = "API para gestión de trazabilidad y eficiencia de pedidos")
+@Tag(name = "Traceability", description = "API to manage order traceability and efficiency")
 public class TraceabilityRestController {
 
     private final TraceabilityRestInputAdapter traceabilityRestInputAdapter;

@@ -59,7 +59,7 @@ public class TraceabilityUseCase implements ITraceabilityServicePort {
     public List<EmployeeRanking> getEmployeeRankingByRestaurant(Long restaurantId) {
         List<OrderEfficiency> efficiencies = getOrdersEfficiencyByRestaurant(restaurantId);
 
-        // Agrupar por empleado y calcular estadísticas
+        // Group by employee and calculate statistics
         Map<Long, List<OrderEfficiency>> efficienciesByEmployee = new HashMap<>();
         Map<Long, String> employeeEmails = new HashMap<>();
 
@@ -93,7 +93,7 @@ public class TraceabilityUseCase implements ITraceabilityServicePort {
             rankings.add(ranking);
         }
 
-        // Ordenar por tiempo promedio (menor es mejor) y asignar posición
+        // Sort by average time (lower is better) and assign position
         rankings.sort(Comparator.comparing(EmployeeRanking::getAverageDurationInMinutes));
 
         AtomicInteger position = new AtomicInteger(1);
@@ -109,22 +109,22 @@ public class TraceabilityUseCase implements ITraceabilityServicePort {
             return null;
         }
 
-        // Ordenar por fecha
+        // Sort by date
         traces.sort(Comparator.comparing(Traceability::getDate));
 
-        // Buscar el primer registro (cuando se crea el pedido - estado PENDING)
+        // Find the first record (when the order is created - status PENDING)
         Traceability firstTrace = traces.stream()
                 .filter(t -> STATUS_PENDING.equals(t.getNewStatus()))
                 .findFirst()
                 .orElse(traces.get(0));
 
-        // Buscar el último registro (DELIVERED o CANCELLED)
+        // Find the last record (DELIVERED or CANCELLED)
         Traceability lastTrace = traces.stream()
                 .filter(t -> STATUS_DELIVERED.equals(t.getNewStatus()) || STATUS_CANCELLED.equals(t.getNewStatus()))
                 .reduce((first, second) -> second)
                 .orElse(null);
 
-        // Si el pedido no ha terminado, no calcular eficiencia
+        // If the order hasn't finished, do not calculate efficiency
         if (lastTrace == null) {
             return null;
         }
@@ -133,11 +133,11 @@ public class TraceabilityUseCase implements ITraceabilityServicePort {
         LocalDateTime endTime = lastTrace.getDate();
         long durationMinutes = Duration.between(startTime, endTime).toMinutes();
 
-        // Obtener el empleado que procesó el pedido (el que lo marcó como entregado o el último que interactuó)
+        // Get the employee who processed the order (the one who marked it as delivered or the last one who interacted)
         Long employeeId = lastTrace.getEmployeeId();
         String employeeEmail = lastTrace.getEmployeeEmail();
 
-        // Si no hay empleado en el último registro, buscar en registros anteriores
+        // If there is no employee in the last record, search previous records
         if (employeeId == null) {
             for (int i = traces.size() - 1; i >= 0; i--) {
                 if (traces.get(i).getEmployeeId() != null) {

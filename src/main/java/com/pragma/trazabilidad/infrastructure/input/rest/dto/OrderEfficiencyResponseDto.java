@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 /**
- * DTO que representa la eficiencia de un pedido individual.
+ * DTO that represents the efficiency of an individual order.
  */
 @Getter
 @Setter

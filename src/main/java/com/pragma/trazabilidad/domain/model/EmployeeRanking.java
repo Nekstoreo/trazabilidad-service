@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Modelo que representa el ranking de eficiencia de un empleado.
- * Contiene información sobre el tiempo medio de preparación de pedidos por empleado.
+ * Model that represents an employee efficiency ranking.
+ * Contains information about the average order preparation time per employee.
  */
 @Getter
 @Setter

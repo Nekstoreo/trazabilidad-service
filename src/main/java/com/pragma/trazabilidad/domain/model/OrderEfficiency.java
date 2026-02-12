@@ -8,8 +8,8 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 /**
- * Modelo que representa la eficiencia de un pedido individual.
- * Contiene información sobre el tiempo que tardó el pedido desde su creación hasta su finalización.
+ * Model that represents the efficiency of an individual order.
+ * Contains information about the time it took the order from creation to completion.
  */
 @Getter
 @Setter

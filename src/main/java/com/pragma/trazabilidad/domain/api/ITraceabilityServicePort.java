@@ -12,19 +12,19 @@ public interface ITraceabilityServicePort {
     List<Traceability> getTraceabilityByClientId(Long clientId);
 
     /**
-     * Obtiene la eficiencia de todos los pedidos de un restaurante.
-     * Muestra el tiempo entre que un pedido inicia y termina.
+     * Retrieves the efficiency of all orders for a specific restaurant.
+     * Shows the time between order creation and completion for each order.
      *
-     * @param restaurantId ID del restaurante
-     * @return Lista de eficiencias de pedidos
+     * @param restaurantId ID of the restaurant
+     * @return List of order efficiencies
      */
     List<OrderEfficiency> getOrdersEfficiencyByRestaurant(Long restaurantId);
 
     /**
-     * Obtiene el ranking de empleados por tiempo medio de preparación de pedidos.
+     * Retrieves the ranking of employees by average order completion time.
      *
-     * @param restaurantId ID del restaurante
-     * @return Lista de rankings de empleados ordenados por eficiencia
+     * @param restaurantId ID of the restaurant
+     * @return List of employee rankings ordered by efficiency
      */
     List<EmployeeRanking> getEmployeeRankingByRestaurant(Long restaurantId);
 }
