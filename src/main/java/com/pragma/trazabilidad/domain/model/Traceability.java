@@ -1,6 +1,9 @@
 package com.pragma.trazabilidad.domain.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -9,6 +12,9 @@ import java.util.List;
 
 @Setter
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Traceability {
     private String id;
     private Long orderId;
@@ -20,14 +26,7 @@ public class Traceability {
     private Long employeeId;
     private String employeeEmail;
     private Long restaurantId;
+    @Builder.Default
     private List<TraceabilityOrderItem> orderItems = new ArrayList<>();
     private Long totalOrderAmount;
-
-    public Traceability() {
-        /* Empty constructor intentionally left.
-           Required by persistence/serialization frameworks and libraries
-           (e.g., Jackson, JPA, MapStruct) that instantiate the class via reflection.
-           Should not contain additional logic. */
-    }
-
 }
