@@ -1,5 +1,6 @@
 package com.pragma.trazabilidad.infrastructure.input.rest.controller;
 
+import com.pragma.trazabilidad.infrastructure.constant.ApiConstants;
 import com.pragma.trazabilidad.infrastructure.input.rest.adapter.TraceabilityRestInputAdapter;
 import com.pragma.trazabilidad.infrastructure.input.rest.dto.EmployeeRankingResponseDto;
 import com.pragma.trazabilidad.infrastructure.input.rest.dto.OrderEfficiencyResponseDto;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/traceability")
+@RequestMapping(ApiConstants.TRACEABILITY_BASE_PATH)
 @RequiredArgsConstructor
 @Tag(name = "Traceability", description = "API to manage order traceability and efficiency")
 public class TraceabilityRestController {
