@@ -1,6 +1,8 @@
 package com.pragma.trazabilidad.application.mapper;
 
 import com.pragma.trazabilidad.domain.model.Traceability;
+import com.pragma.trazabilidad.domain.model.TraceabilityOrderItem;
+import com.pragma.trazabilidad.infrastructure.input.rest.dto.TraceabilityOrderItemDto;
 import com.pragma.trazabilidad.infrastructure.input.rest.dto.TraceabilityRequestDto;
 import com.pragma.trazabilidad.infrastructure.input.rest.dto.TraceabilityResponseDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,6 +43,8 @@ class TraceabilityDtoMapperTest {
         requestDto.setEmployeeId(EMPLOYEE_ID);
         requestDto.setEmployeeEmail(EMPLOYEE_EMAIL);
         requestDto.setRestaurantId(RESTAURANT_ID);
+        requestDto.setOrderItems(Collections.singletonList(createOrderItemDto()));
+        requestDto.setTotalOrderAmount(2500L);
 
         Traceability model = mapper.toModel(requestDto);
 
@@ -54,6 +58,8 @@ class TraceabilityDtoMapperTest {
         assertEquals(requestDto.getEmployeeEmail(), model.getEmployeeEmail());
         assertEquals(requestDto.getRestaurantId(), model.getRestaurantId());
         assertNotNull(model.getDate());
+        assertEquals(1, model.getOrderItems().size());
+        assertEquals(2500L, model.getTotalOrderAmount());
     }
 
     @Test
@@ -68,6 +74,8 @@ class TraceabilityDtoMapperTest {
         model.setEmployeeId(EMPLOYEE_ID);
         model.setEmployeeEmail(EMPLOYEE_EMAIL);
         model.setRestaurantId(RESTAURANT_ID);
+        model.setOrderItems(Collections.singletonList(createOrderItem()));
+        model.setTotalOrderAmount(2500L);
 
         TraceabilityResponseDto responseDto = mapper.toResponse(model);
 
@@ -81,6 +89,8 @@ class TraceabilityDtoMapperTest {
         assertEquals(model.getEmployeeId(), responseDto.getEmployeeId());
         assertEquals(model.getEmployeeEmail(), responseDto.getEmployeeEmail());
         assertEquals(model.getRestaurantId(), responseDto.getRestaurantId());
+        assertEquals(1, responseDto.getOrderItems().size());
+        assertEquals(2500L, responseDto.getTotalOrderAmount());
     }
 
     @Test
@@ -94,5 +104,27 @@ class TraceabilityDtoMapperTest {
         assertNotNull(responseList);
         assertEquals(1, responseList.size());
         assertEquals(TRACE_ID, responseList.get(0).getId());
+    }
+
+    private TraceabilityOrderItemDto createOrderItemDto() {
+        TraceabilityOrderItemDto item = new TraceabilityOrderItemDto();
+        item.setDishId(12L);
+        item.setDishName("Taco");
+        item.setQuantity(3);
+        item.setUnitPrice(250L);
+        item.setLinePrice(750L);
+        item.setCategory("Mexican");
+        return item;
+    }
+
+    private TraceabilityOrderItem createOrderItem() {
+        TraceabilityOrderItem item = new TraceabilityOrderItem();
+        item.setDishId(12L);
+        item.setDishName("Taco");
+        item.setQuantity(3);
+        item.setUnitPrice(250L);
+        item.setLinePrice(750L);
+        item.setCategory("Mexican");
+        return item;
     }
 }

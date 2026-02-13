@@ -1,7 +1,9 @@
 package com.pragma.trazabilidad.infrastructure.output.mongodb.mapper;
 
 import com.pragma.trazabilidad.domain.model.Traceability;
+import com.pragma.trazabilidad.domain.model.TraceabilityOrderItem;
 import com.pragma.trazabilidad.infrastructure.output.mongodb.document.TraceabilityDocument;
+import com.pragma.trazabilidad.infrastructure.output.mongodb.document.TraceabilityOrderItemDocument;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -43,6 +45,8 @@ class TraceabilityEntityMapperTest {
         model.setEmployeeId(EMPLOYEE_ID);
         model.setEmployeeEmail(EMPLOYEE_EMAIL);
         model.setRestaurantId(RESTAURANT_ID);
+        model.setOrderItems(Collections.singletonList(createOrderItem()));
+        model.setTotalOrderAmount(900L);
 
         TraceabilityDocument document = mapper.toDocument(model);
 
@@ -57,6 +61,8 @@ class TraceabilityEntityMapperTest {
         assertEquals(model.getEmployeeId(), document.getEmployeeId());
         assertEquals(model.getEmployeeEmail(), document.getEmployeeEmail());
         assertEquals(model.getRestaurantId(), document.getRestaurantId());
+        assertEquals(1, document.getOrderItems().size());
+        assertEquals(900L, document.getTotalOrderAmount());
     }
 
     @Test
@@ -72,6 +78,8 @@ class TraceabilityEntityMapperTest {
         document.setEmployeeId(EMPLOYEE_ID);
         document.setEmployeeEmail(EMPLOYEE_EMAIL);
         document.setRestaurantId(RESTAURANT_ID);
+        document.setOrderItems(Collections.singletonList(createOrderItemDocument()));
+        document.setTotalOrderAmount(900L);
 
         Traceability model = mapper.toModel(document);
 
@@ -86,6 +94,8 @@ class TraceabilityEntityMapperTest {
         assertEquals(document.getEmployeeId(), model.getEmployeeId());
         assertEquals(document.getEmployeeEmail(), model.getEmployeeEmail());
         assertEquals(document.getRestaurantId(), model.getRestaurantId());
+        assertEquals(1, model.getOrderItems().size());
+        assertEquals(900L, model.getTotalOrderAmount());
     }
 
     @Test
@@ -99,5 +109,27 @@ class TraceabilityEntityMapperTest {
         assertNotNull(modelList);
         assertEquals(1, modelList.size());
         assertEquals(TRACE_ID, modelList.get(0).getId());
+    }
+
+    private TraceabilityOrderItem createOrderItem() {
+        TraceabilityOrderItem item = new TraceabilityOrderItem();
+        item.setDishId(5L);
+        item.setDishName("Sushi");
+        item.setQuantity(2);
+        item.setUnitPrice(450L);
+        item.setLinePrice(900L);
+        item.setCategory("Japanese");
+        return item;
+    }
+
+    private TraceabilityOrderItemDocument createOrderItemDocument() {
+        TraceabilityOrderItemDocument item = new TraceabilityOrderItemDocument();
+        item.setDishId(5L);
+        item.setDishName("Sushi");
+        item.setQuantity(2);
+        item.setUnitPrice(450L);
+        item.setLinePrice(900L);
+        item.setCategory("Japanese");
+        return item;
     }
 }
