@@ -1,6 +1,7 @@
 package com.pragma.trazabilidad.infrastructure.output.mongodb.document;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.List;
 @Document(collection = "traceability")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class TraceabilityDocument {
@@ -28,6 +30,7 @@ public class TraceabilityDocument {
     private Long employeeId;
     private String employeeEmail;
     private Long restaurantId;
+    @Builder.Default
     private List<TraceabilityOrderItemDocument> orderItems = new ArrayList<>();
     private Long totalOrderAmount;
 }
