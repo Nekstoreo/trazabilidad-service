@@ -6,11 +6,14 @@ import com.pragma.trazabilidad.domain.model.OrderEfficiency;
 import com.pragma.trazabilidad.domain.model.Traceability;
 import com.pragma.trazabilidad.domain.spi.ITraceabilityPersistencePort;
 
+import lombok.RequiredArgsConstructor;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@RequiredArgsConstructor
 public class TraceabilityUseCase implements ITraceabilityServicePort {
 
     private static final String STATUS_PENDING = "PENDING";
@@ -18,10 +21,6 @@ public class TraceabilityUseCase implements ITraceabilityServicePort {
     private static final String STATUS_CANCELLED = "CANCELLED";
 
     private final ITraceabilityPersistencePort traceabilityPersistencePort;
-
-    public TraceabilityUseCase(ITraceabilityPersistencePort traceabilityPersistencePort) {
-        this.traceabilityPersistencePort = traceabilityPersistencePort;
-    }
 
     @Override
     public void saveTraceability(Traceability traceability) {
@@ -83,14 +82,13 @@ public class TraceabilityUseCase implements ITraceabilityServicePort {
                     .average()
                     .orElse(0.0);
 
-            EmployeeRanking ranking = new EmployeeRanking();
-            ranking.setEmployeeId(employeeId);
-            ranking.setEmployeeEmail(employeeEmails.get(employeeId));
-            ranking.setRestaurantId(restaurantId);
-            ranking.setTotalOrdersCompleted((long) employeeEfficiencies.size());
-            ranking.setAverageDurationInMinutes(Math.round(averageDuration * 100.0) / 100.0);
-
-            rankings.add(ranking);
+            rankings.add(EmployeeRanking.builder()
+                    .employeeId(employeeId)
+                    .employeeEmail(employeeEmails.get(employeeId))
+                    .restaurantId(restaurantId)
+                    .totalOrdersCompleted((long) employeeEfficiencies.size())
+                    .averageDurationInMinutes(Math.round(averageDuration * 100.0) / 100.0)
+                    .build());
         }
 
         // Sort by average time (lower is better) and assign position
@@ -148,16 +146,15 @@ public class TraceabilityUseCase implements ITraceabilityServicePort {
             }
         }
 
-        OrderEfficiency efficiency = new OrderEfficiency();
-        efficiency.setOrderId(orderId);
-        efficiency.setRestaurantId(restaurantId);
-        efficiency.setEmployeeId(employeeId);
-        efficiency.setEmployeeEmail(employeeEmail);
-        efficiency.setStartTime(startTime);
-        efficiency.setEndTime(endTime);
-        efficiency.setDurationInMinutes(durationMinutes);
-        efficiency.setFinalStatus(lastTrace.getNewStatus());
-
-        return efficiency;
+        return OrderEfficiency.builder()
+                .orderId(orderId)
+                .restaurantId(restaurantId)
+                .employeeId(employeeId)
+                .employeeEmail(employeeEmail)
+                .startTime(startTime)
+                .endTime(endTime)
+                .durationInMinutes(durationMinutes)
+                .finalStatus(lastTrace.getNewStatus())
+                .build();
     }
 }

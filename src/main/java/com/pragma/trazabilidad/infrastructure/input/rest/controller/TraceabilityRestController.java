@@ -44,7 +44,7 @@ public class TraceabilityRestController {
             @ApiResponse(responseCode = "404", description = "Traceability not found", content = @Content)
     })
     @GetMapping("/{orderId}")
-    public ResponseEntity<List<TraceabilityResponseDto>> getTraceabilityByOrderId(@PathVariable Long orderId) {
+    public ResponseEntity<List<TraceabilityResponseDto>> getTraceabilityByOrderId(@PathVariable(name = "orderId") Long orderId) {
         return ResponseEntity.ok(traceabilityRestInputAdapter.getTraceabilityByOrderId(orderId));
     }
 
@@ -54,7 +54,7 @@ public class TraceabilityRestController {
             @ApiResponse(responseCode = "404", description = "Traceability not found", content = @Content)
     })
     @GetMapping("/client/{clientId}")
-    public ResponseEntity<List<TraceabilityResponseDto>> getTraceabilityByClientId(@PathVariable Long clientId) {
+    public ResponseEntity<List<TraceabilityResponseDto>> getTraceabilityByClientId(@PathVariable(name = "clientId") Long clientId) {
         return ResponseEntity.ok(traceabilityRestInputAdapter.getTraceabilityByClientId(clientId));
     }
 
@@ -68,7 +68,7 @@ public class TraceabilityRestController {
     })
     @GetMapping("/efficiency/restaurant/{restaurantId}/orders")
     public ResponseEntity<List<OrderEfficiencyResponseDto>> getOrdersEfficiencyByRestaurant(
-            @PathVariable Long restaurantId) {
+            @PathVariable(name = "restaurantId") Long restaurantId) {
         return ResponseEntity.ok(traceabilityRestInputAdapter.getOrdersEfficiencyByRestaurant(restaurantId));
     }
 
@@ -82,7 +82,7 @@ public class TraceabilityRestController {
     })
     @GetMapping("/efficiency/restaurant/{restaurantId}/employees")
     public ResponseEntity<List<EmployeeRankingResponseDto>> getEmployeeRankingByRestaurant(
-            @PathVariable Long restaurantId) {
+            @PathVariable(name = "restaurantId") Long restaurantId) {
         return ResponseEntity.ok(traceabilityRestInputAdapter.getEmployeeRankingByRestaurant(restaurantId));
     }
 }
