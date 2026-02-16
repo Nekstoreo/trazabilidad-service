@@ -111,6 +111,70 @@ class TraceabilityEntityMapperTest {
         assertEquals(TRACE_ID, modelList.get(0).getId());
     }
 
+    @Test
+    void toModelList_WithNullInput_ShouldReturnNull() {
+        List<Traceability> modelList = mapper.toModelList(null);
+        assertNull(modelList);
+    }
+
+    @Test
+    void toOrderItemDocument_ShouldMapAllFields() {
+        TraceabilityOrderItem item = createOrderItem();
+
+        TraceabilityOrderItemDocument document = mapper.toOrderItemDocument(item);
+
+        assertNotNull(document);
+        assertEquals(item.getDishId(), document.getDishId());
+        assertEquals(item.getDishName(), document.getDishName());
+        assertEquals(item.getQuantity(), document.getQuantity());
+        assertEquals(item.getUnitPrice(), document.getUnitPrice());
+        assertEquals(item.getLinePrice(), document.getLinePrice());
+        assertEquals(item.getCategory(), document.getCategory());
+    }
+
+    @Test
+    void toOrderItemModel_ShouldMapAllFields() {
+        TraceabilityOrderItemDocument document = createOrderItemDocument();
+
+        TraceabilityOrderItem item = mapper.toOrderItemModel(document);
+
+        assertNotNull(item);
+        assertEquals(document.getDishId(), item.getDishId());
+        assertEquals(document.getDishName(), item.getDishName());
+        assertEquals(document.getQuantity(), item.getQuantity());
+        assertEquals(document.getUnitPrice(), item.getUnitPrice());
+        assertEquals(document.getLinePrice(), item.getLinePrice());
+        assertEquals(document.getCategory(), item.getCategory());
+    }
+
+    @Test
+    void toOrderItemModelList_WithNullInput_ShouldReturnNull() {
+        List<TraceabilityOrderItem> items = mapper.toOrderItemModelList(null);
+        assertNull(items);
+    }
+
+    @Test
+    void toOrderItemDocumentList_WithNullInput_ShouldReturnNull() {
+        List<TraceabilityOrderItemDocument> items = mapper.toOrderItemDocumentList(null);
+        assertNull(items);
+    }
+
+    @Test
+    void toOrderItemLists_ShouldMapAllItems() {
+        List<TraceabilityOrderItemDocument> documentItems = Collections.singletonList(createOrderItemDocument());
+        List<TraceabilityOrderItem> modelItems = mapper.toOrderItemModelList(documentItems);
+
+        assertNotNull(modelItems);
+        assertEquals(1, modelItems.size());
+        assertEquals(documentItems.get(0).getDishId(), modelItems.get(0).getDishId());
+
+        List<TraceabilityOrderItemDocument> mappedBack = mapper.toOrderItemDocumentList(modelItems);
+
+        assertNotNull(mappedBack);
+        assertEquals(1, mappedBack.size());
+        assertEquals(modelItems.get(0).getDishName(), mappedBack.get(0).getDishName());
+    }
+
     private TraceabilityOrderItem createOrderItem() {
         TraceabilityOrderItem item = new TraceabilityOrderItem();
         item.setDishId(5L);

@@ -106,6 +106,70 @@ class TraceabilityDtoMapperTest {
         assertEquals(TRACE_ID, responseList.get(0).getId());
     }
 
+    @Test
+    void toResponseList_WithNullInput_ShouldReturnNull() {
+        List<TraceabilityResponseDto> responseList = mapper.toResponseList(null);
+        assertNull(responseList);
+    }
+
+    @Test
+    void toOrderItemModel_ShouldMapAllFields() {
+        TraceabilityOrderItemDto itemDto = createOrderItemDto();
+
+        TraceabilityOrderItem item = mapper.toOrderItemModel(itemDto);
+
+        assertNotNull(item);
+        assertEquals(itemDto.getDishId(), item.getDishId());
+        assertEquals(itemDto.getDishName(), item.getDishName());
+        assertEquals(itemDto.getQuantity(), item.getQuantity());
+        assertEquals(itemDto.getUnitPrice(), item.getUnitPrice());
+        assertEquals(itemDto.getLinePrice(), item.getLinePrice());
+        assertEquals(itemDto.getCategory(), item.getCategory());
+    }
+
+    @Test
+    void toOrderItemDto_ShouldMapAllFields() {
+        TraceabilityOrderItem item = createOrderItem();
+
+        TraceabilityOrderItemDto itemDto = mapper.toOrderItemDto(item);
+
+        assertNotNull(itemDto);
+        assertEquals(item.getDishId(), itemDto.getDishId());
+        assertEquals(item.getDishName(), itemDto.getDishName());
+        assertEquals(item.getQuantity(), itemDto.getQuantity());
+        assertEquals(item.getUnitPrice(), itemDto.getUnitPrice());
+        assertEquals(item.getLinePrice(), itemDto.getLinePrice());
+        assertEquals(item.getCategory(), itemDto.getCategory());
+    }
+
+    @Test
+    void toOrderItemModelList_WithNullInput_ShouldReturnNull() {
+        List<TraceabilityOrderItem> items = mapper.toOrderItemModelList(null);
+        assertNull(items);
+    }
+
+    @Test
+    void toOrderItemDtoList_WithNullInput_ShouldReturnNull() {
+        List<TraceabilityOrderItemDto> items = mapper.toOrderItemDtoList(null);
+        assertNull(items);
+    }
+
+    @Test
+    void toOrderItemLists_ShouldMapAllItems() {
+        List<TraceabilityOrderItemDto> dtoList = Collections.singletonList(createOrderItemDto());
+        List<TraceabilityOrderItem> modelList = mapper.toOrderItemModelList(dtoList);
+
+        assertNotNull(modelList);
+        assertEquals(1, modelList.size());
+        assertEquals(dtoList.get(0).getDishId(), modelList.get(0).getDishId());
+
+        List<TraceabilityOrderItemDto> mappedBack = mapper.toOrderItemDtoList(modelList);
+
+        assertNotNull(mappedBack);
+        assertEquals(1, mappedBack.size());
+        assertEquals(modelList.get(0).getDishName(), mappedBack.get(0).getDishName());
+    }
+
     private TraceabilityOrderItemDto createOrderItemDto() {
         TraceabilityOrderItemDto item = new TraceabilityOrderItemDto();
         item.setDishId(12L);
